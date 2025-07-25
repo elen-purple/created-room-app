@@ -1,0 +1,23 @@
+{
+  "name": "created-room-app",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://elen-purple.github.io/created-room-app/",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx parcel src/index.html",
+    "build": "parcel build src/index.html --no-cache --public-url ./",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.15.4",
+    "sass": "^1.89.2"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.15.4"
+  }
+}
