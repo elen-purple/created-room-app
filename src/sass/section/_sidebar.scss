@@ -1,21 +1,28 @@
 .sidebar {
     padding: 40px;
     display: block;
+    min-width: 400px;
     width: 400px;
     background-color: #313131;
-}
+    height: 100vh;
+    overflow: auto;
 
-.sidebar__list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
-.sidebar__item {
-    background-color: #282828;
-}
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 
-.sidebar__img {
-    width: 150px;
-    height: 150px;
+    &__item {
+        background-color: #282828;
+    }
+
+    &__img {
+        width: 150px;
+        height: 150px;
+    }
 }
