@@ -13,12 +13,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "gh-pages": "^6.3.0",
-    "parcel": "^2.15.4",
-    "sass": "^1.89.2"
-  },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.15.4"
+    "@parcel/transformer-sass": "^2.15.2",
+    "gh-pages": "^6.3.0",
+    "parcel": "^2.15.2",
+    "posthtml-include": "^2.0.1",
+    "svgo": "^3.3.2"
   }
 }
