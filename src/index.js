@@ -6,7 +6,7 @@ getFurnitureList().then((furniture) => {
   makesFurnitureList(furniture);
 });
 
-let id = 1
+let id = 1;
 
 document.querySelector("#sidebar").addEventListener("click", (e) => {
   if (
@@ -17,16 +17,15 @@ document.querySelector("#sidebar").addEventListener("click", (e) => {
       ? e.target
       : e.target.firstElementChild;
     addImgToRoom(id, target.src);
-    document
-      .querySelector("#room")
-      .querySelector(`#img-${target.id}`).style.top = `${document.querySelector("#room").querySelector(`#img-${target.id}`)
-        .clientHeight / 2
-      }px`;
-    document
-      .querySelector("#room")
-      .querySelector(`#img-${target.id}`).style.left = `${document.querySelector("#room").querySelector(`#img-${target.id}`)
-        .clientWidth / 2
-      }px`;
-    id += 1
+    console.log(id);
+    document.querySelector("#room").querySelector(`#img-${id}`).style.top = `${
+      document.querySelector("#room").querySelector(`#img-${id}`).clientHeight /
+      2
+    }px`;
+    document.querySelector("#room").querySelector(`#img-${id}`).style.left = `${
+      document.querySelector("#room").querySelector(`#img-${id}`).clientWidth /
+      2
+    }px`;
+    id += 1;
   }
 });
