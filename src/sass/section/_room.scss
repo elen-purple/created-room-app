@@ -21,3 +21,109 @@
         transform: translate(-50%, -50%);
     }
 }
+
+.menu {
+    z-index: 2;
+    min-width: 150px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    border-radius: 8px;
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        background-color: #313131;
+    }
+
+    &__item {
+        width: 100%;
+    }
+
+    &__item:nth-child(1) &__btn {
+        background-color: #282b31;
+    }
+
+    &__item:nth-child(2) &__btn {
+        background-color: rgb(49, 46, 40);
+    }
+
+    &__item:nth-child(3) &__btn {
+        background-color: rgb(49, 46, 40);
+    }
+
+    &__item:nth-child(4) &__btn {
+        background-color: #312828;
+    }
+
+    &__item:nth-child(1) &__btn:hover {
+        background-color: rgb(40, 137, 222);
+    }
+
+    &__item:nth-child(2) &__btn:hover {
+        background-color: rgb(245, 201, 44);
+    }
+
+    &__item:nth-child(3) &__btn:hover {
+        background-color: rgb(245, 201, 44);
+    }
+
+    &__item:nth-child(4) &__btn:hover {
+        background-color: rgb(238, 49, 49);
+    }
+
+    &__item:nth-child(1) &__text {
+        color: rgb(40, 137, 222);
+    }
+
+    &__item:nth-child(2) &__text {
+        color: rgb(245, 201, 44);
+    }
+
+    &__item:nth-child(3) &__text {
+        color: rgb(245, 201, 44);
+    }
+
+    &__item:nth-child(4) &__text {
+        color: rgb(238, 49, 49);
+    }
+
+    &__btn:hover &__text {
+        color: #ffffff;
+    }
+
+    &__btn {
+        padding: 8px 12px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__item &__btn:hover &__icon {
+        fill: #ffffff;
+    }
+
+    &__item:nth-child(1) &__icon {
+        fill: rgb(40, 137, 222);
+    }
+
+    &__item:nth-child(2) &__icon {
+        fill: rgb(245, 201, 44);
+    }
+
+    &__item:nth-child(3) &__icon {
+        fill: rgb(245, 201, 44);
+    }
+
+    &__item:nth-child(4) &__icon {
+        fill: rgb(238, 49, 49);
+    }
+}
+
+.is-hidden {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+}
