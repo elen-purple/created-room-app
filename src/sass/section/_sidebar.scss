@@ -1,0 +1,21 @@
+.sidebar {
+    padding: 40px;
+    display: block;
+    width: 400px;
+    background-color: #313131;
+}
+
+.sidebar__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.sidebar__item {
+    background-color: #282828;
+}
+
+.sidebar__img {
+    width: 150px;
+    height: 150px;
+}
