@@ -1,6 +1,7 @@
 import { getFurnitureList } from "./js/fetchs/getFurnitureList";
 import { makesFurnitureList } from "./js/markups/makesFurnitureList";
 import { addImgToRoom } from "./js/scripts/addImgToRoom";
+import { openMenu } from "./js/scripts/openMenu";
 
 getFurnitureList().then((furniture) => {
   makesFurnitureList(furniture);
@@ -28,4 +29,25 @@ document.querySelector("#sidebar").addEventListener("click", (e) => {
     }px`;
     id += 1;
   }
+});
+
+let img = "";
+
+document.querySelector("#room").addEventListener("contextmenu", (e) => {
+  e.preventDefault();
+  if (e.target.hasAttribute("data-image")) {
+    img = e.target.id;
+    openMenu(e.offsetX, e.offsetY);
+  }
+});
+
+window.addEventListener("click", (e) => {
+  if (!e.target.hasAttribute("data-image")) {
+    img = "";
+    document.querySelector("#menu").classList.add("is-hidden");
+  }
+});
+
+document.querySelector("#rotate").addEventListener("click", (e) => {
+  //   document.querySelector(`#${img}`).style.
 });
