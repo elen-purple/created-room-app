@@ -19,10 +19,16 @@
 
     &__item {
         background-color: #282828;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     &__img {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
     }
 }

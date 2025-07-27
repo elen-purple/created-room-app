@@ -1,0 +1,31 @@
+import { getFurnitureList } from "./js/fetchs/getFurnitureList";
+import { makesFurnitureList } from "./js/markups/makesFurnitureList";
+import { addImgToRoom } from "./js/scripts/addImgToRoom";
+
+getFurnitureList().then((furniture) => {
+  makesFurnitureList(furniture);
+});
+
+document.querySelector("#sidebar").addEventListener("click", (e) => {
+  if (
+    e.target.hasAttribute("data-img") ||
+    e.target.firstElementChild.hasAttribute("data-img")
+  ) {
+    const target = e.target.hasAttribute("data-img")
+      ? e.target
+      : e.target.firstElementChild;
+    addImgToRoom(target.id, target.src);
+    document
+      .querySelector("#room")
+      .querySelector(`#img-${target.id}`).style.top = `${
+      document.querySelector("#room").querySelector(`#img-${target.id}`)
+        .clientHeight / 2
+    }px`;
+    document
+      .querySelector("#room")
+      .querySelector(`#img-${target.id}`).style.left = `${
+      document.querySelector("#room").querySelector(`#img-${target.id}`)
+        .clientWidth / 2
+    }px`;
+  }
+});

@@ -1,0 +1,9 @@
+export const getFurnitureList = async () => {
+  try {
+    return await fetch(
+      "https://68860803f52d34140f6b2f20.mockapi.io/create-room-app/furniture"
+    ).then((response) => response.json());
+  } catch (e) {
+    return e;
+  }
+};
