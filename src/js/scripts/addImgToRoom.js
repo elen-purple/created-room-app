@@ -3,6 +3,6 @@ export const addImgToRoom = (id, img) => {
     .querySelector("#room")
     .insertAdjacentHTML(
       "beforeend",
-      `<img class="room__img" data-image style="top:0; left:0" id="img-${id}" src="${img}" alt="Furniture"/>`
+      `<img class="room__img" data-image id="img-${id}" src="${img}" alt="Furniture"/>`
     );
 };
