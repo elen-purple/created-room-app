@@ -1,11 +1,40 @@
-<!DOCTYPE html><html lang=en><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>Created Room App</title><link rel=icon type=image/svg+xml href=logo.0dcd6fb6.svg><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css integrity="sha512-4xo8blKMVCiXpTaLzQSLSw3KFOVPWhm/TRtuPVc4WG6kUgjH6J03IBuG7JZPkcWMxJ5huwaBpOpnwYElP/m6wg==" crossorigin=anonymous referrerpolicy=no-referrer><link rel=stylesheet href=created-room-app.a288f251.css><body>
+<!DOCTYPE html><html lang=en><meta charset=UTF-8><meta name=viewport content="width=device-width, initial-scale=1.0"><title>Created Room App</title><link rel=icon type=image/svg+xml href=logo.0dcd6fb6.svg><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/2.0.0/modern-normalize.min.css integrity="sha512-4xo8blKMVCiXpTaLzQSLSw3KFOVPWhm/TRtuPVc4WG6kUgjH6J03IBuG7JZPkcWMxJ5huwaBpOpnwYElP/m6wg==" crossorigin=anonymous referrerpolicy=no-referrer><link rel=stylesheet href=created-room-app.8e675475.css><body>
     <div style=display:none>
-  <svg style=display:none><defs><symbol id=delete viewBox="0 0 32 32"><path d="M8.222 26V9.333H7.111V7.111h5.556V6h6.667v1.111h5.556v2.222h-1.111V26H8.223Zm2.222-2.222h11.111V9.334H10.444Zm2.223-2.222h2.222v-10h-2.222Zm4.444 0h2.222v-10h-2.222Z"/></symbol><symbol id=down viewBox="0 0 32 32"><path d="m16 24.889-6.222-6.222 1.244-1.267 4.089 4.089v-6.378h1.778v6.378l4.089-4.067 1.244 1.245Zm-.889-11.556v-2.667h1.778v2.667Zm0-4.444V7.111h1.778v1.778Z"/></symbol><symbol id=up viewBox="0 0 32 32"><path d="m15.111 10.511-4.089 4.067-1.244-1.244L16 7.112l6.222 6.222-1.244 1.267-4.089-4.089v6.378h-1.778v-6.378Zm0 10.822v-2.667h1.778v2.667Zm0 3.556v-1.778h1.778v1.778Z"/></symbol><symbol id=round viewBox="0 0 32 32"><path d="M16 20.444q1.845 0 3.145-1.3c1.3-1.3 1.3-1.915 1.3-3.144h-1.333q0 1.289-.911 2.2c-.911.911-1.341.911-2.2.911q-1.289 0-2.2-.911c-.911-.911-.911-1.341-.911-2.2q0-1.289.911-2.2c.911-.911 1.341-.911 2.2-.911h.067L14.979 14l.933.955 2.667-2.667-2.667-2.667-.956.956.978.978q-1.822.045-3.1 1.333c-1.278 1.288-1.278 1.896-1.277 3.111q0 1.845 1.3 3.145c1.3 1.3 1.915 1.3 3.144 1.3Zm0 4.445q-1.845 0-3.467-.7c-1.622-.7-2.022-1.1-2.822-1.9q-1.2-1.199-1.9-2.822c-.7-1.623-.7-2.238-.7-3.467s.233-2.385.7-3.467q.702-1.623 1.9-2.822c1.198-1.199 1.74-1.433 2.822-1.9q1.624-.7 3.467-.7c1.843 0 2.384.233 3.467.7s2.023 1.1 2.822 1.9q1.198 1.199 1.9 2.822c.702 1.623.701 2.238.7 3.467s-.235 2.385-.7 3.467q-.697 1.623-1.9 2.822c-1.203 1.199-1.742 1.433-2.822 1.901a8.6 8.6 0 0 1-3.467.699m0-1.778q2.978 0 5.045-2.067c2.067-2.067 2.067-3.059 2.067-5.044s-.689-3.667-2.067-5.044Q18.978 8.889 16 8.889c-2.978 0-3.667.689-5.044 2.067Q8.889 13.023 8.889 16c0 2.977.689 3.667 2.067 5.044q2.067 2.067 5.044 2.067"/></symbol></defs></svg>
+  <svg style=display:none><defs><symbol id=delete viewBox="0 0 32 32"><path d="M8.222 26V9.333H7.111V7.111h5.556V6h6.667v1.111h5.556v2.222h-1.111V26H8.223Zm2.222-2.222h11.111V9.334H10.444Zm2.223-2.222h2.222v-10h-2.222Zm4.444 0h2.222v-10h-2.222Z"/></symbol><symbol id=down viewBox="0 0 32 32"><path d="m16 24.889-6.222-6.222 1.244-1.267 4.089 4.089v-6.378h1.778v6.378l4.089-4.067 1.244 1.245Zm-.889-11.556v-2.667h1.778v2.667Zm0-4.444V7.111h1.778v1.778Z"/></symbol><symbol id=up viewBox="0 0 32 32"><path d="m15.111 10.511-4.089 4.067-1.244-1.244L16 7.112l6.222 6.222-1.244 1.267-4.089-4.089v6.378h-1.778v-6.378Zm0 10.822v-2.667h1.778v2.667Zm0 3.556v-1.778h1.778v1.778Z"/></symbol><symbol id=round viewBox="0 0 32 32"><path d="M16 20.444q1.845 0 3.145-1.3c1.3-1.3 1.3-1.915 1.3-3.144h-1.333q0 1.289-.911 2.2c-.911.911-1.341.911-2.2.911q-1.289 0-2.2-.911c-.911-.911-.911-1.341-.911-2.2q0-1.289.911-2.2c.911-.911 1.341-.911 2.2-.911h.067L14.979 14l.933.955 2.667-2.667-2.667-2.667-.956.956.978.978q-1.822.045-3.1 1.333c-1.278 1.288-1.278 1.896-1.277 3.111q0 1.845 1.3 3.145c1.3 1.3 1.915 1.3 3.144 1.3Zm0 4.445q-1.845 0-3.467-.7c-1.622-.7-2.022-1.1-2.822-1.9q-1.2-1.199-1.9-2.822c-.7-1.623-.7-2.238-.7-3.467s.233-2.385.7-3.467q.702-1.623 1.9-2.822c1.198-1.199 1.74-1.433 2.822-1.9q1.624-.7 3.467-.7c1.843 0 2.384.233 3.467.7s2.023 1.1 2.822 1.9q1.198 1.199 1.9 2.822c.702 1.623.701 2.238.7 3.467s-.235 2.385-.7 3.467q-.697 1.623-1.9 2.822c-1.203 1.199-1.742 1.433-2.822 1.901a8.6 8.6 0 0 1-3.467.699m0-1.778q2.978 0 5.045-2.067c2.067-2.067 2.067-3.059 2.067-5.044s-.689-3.667-2.067-5.044Q18.978 8.889 16 8.889c-2.978 0-3.667.689-5.044 2.067Q8.889 13.023 8.889 16c0 2.977.689 3.667 2.067 5.044q2.067 2.067 5.044 2.067"/></symbol><symbol id=arrow viewBox="0 0 56 32"><path d="M28 32 0 4l4-4 24 24L52 0l4 4Z"/></symbol></defs></svg>
 </div>
 
     <section class=main>
       <sidebar id=sidebar class=sidebar>
-  <ul id=sidebar-list class=sidebar__list></ul>
+  <button id=sidebar-top-floor class=sidebar__top>
+    Floor
+    <svg width=24 height=24 class=sidebar__icon><use href=#arrow /></svg>
+  </button>
+  <ul id=sidebar-list-floor class=sidebar__list></ul>
+  <button id=sidebar-top-walls class=sidebar__top>
+    Walls
+    <svg width=24 height=24 class=sidebar__icon><use href=#arrow /></svg>
+  </button>
+  <ul id=sidebar-list-walls class=sidebar__list></ul>
+  <button id=sidebar-top-doors class=sidebar__top>
+    Doors
+    <svg width=24 height=24 class=sidebar__icon><use href=#arrow /></svg>
+  </button>
+  <ul id=sidebar-list-doors class=sidebar__list></ul>
+  <button id=sidebar-top-windows class=sidebar__top>
+    Windows
+    <svg width=24 height=24 class=sidebar__icon><use href=#arrow /></svg>
+  </button>
+  <ul id=sidebar-list-windows class=sidebar__list></ul>
+  <button id=sidebar-top-plants class=sidebar__top>
+    Plants
+    <svg width=24 height=24 class=sidebar__icon><use href=#arrow /></svg>
+  </button>
+  <ul id=sidebar-list-plants class=sidebar__list></ul>
+  <button id=sidebar-top-furniture class=sidebar__top>
+    Furniture
+    <svg width=24 height=24 class=sidebar__icon><use href=#arrow /></svg>
+  </button>
+  <ul id=sidebar-list-furniture class=sidebar__list></ul>
 </sidebar>
 
       <div class=wrap>
@@ -46,6 +75,6 @@
 </div>
 
     </section>
-    <script type=module src=created-room-app.a928dbbd.js></script>
+    <script type=module src=created-room-app.6af68630.js></script>
   
 

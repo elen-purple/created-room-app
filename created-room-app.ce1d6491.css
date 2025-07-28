@@ -50,7 +50,6 @@ html {
 
 .room {
   background-color: #444;
-  background-image: url("https://i.postimg.cc/Pq4T9SWb/floar-1.png"), url("https://i.postimg.cc/rmDy4S4S/wall-1.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto;
@@ -178,11 +177,13 @@ html {
 
 .sidebar {
   background-color: #313131;
+  flex-direction: column;
+  gap: 40px;
   width: 400px;
   min-width: 400px;
   height: 100vh;
   padding: 40px;
-  display: block;
+  display: flex;
   overflow: auto;
 }
 
@@ -190,10 +191,25 @@ html {
   display: none;
 }
 
+.sidebar__top {
+  color: #fff;
+  background-color: #4b4b4b;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px 32px;
+  font-size: 24px;
+  display: flex;
+}
+
+.sidebar__icon {
+  fill: #fff;
+}
+
 .sidebar__list {
   flex-wrap: wrap;
   gap: 20px;
-  display: flex;
+  display: none;
 }
 
 .sidebar__item {
