@@ -36,7 +36,7 @@
 
 # Встановлення
 
-- git clone https://github.com/your-username/created-room-app.git
+- git clone https://github.com/elen-purple/created-room-app
 
 - cd created-room-app
 
