@@ -1,6 +1,7 @@
 import { getFurnitureList } from "./js/fetchs/getFurnitureList";
 import { makesFurnitureList } from "./js/markups/makesFurnitureList";
-import { makesBgList } from "./js/markups/makesBgList";
+import { makesFloorList } from "./js/markups/makesFloorList";
+import { makesWallsList } from "./js/markups/makesWallsList";
 import { addImgToRoom } from "./js/scripts/addImgToRoom";
 import { openMenu } from "./js/scripts/openMenu";
 import { getData } from "./js/localstorage/getData";
@@ -14,12 +15,12 @@ if (!Object.keys(localStorage).includes("index")) {
 }
 getFurnitureList("furniture").then((furniture) => {
   document.querySelector("#sidebar-list-furniture").innerHTML = makesFurnitureList(furniture);
-
-getFurnitureList("other").then((other) => {
-  document.querySelector("#sidebar-list-walls").innerHTML = makesBgList(other[0].walls);
 });
 getFurnitureList("other").then((other) => {
-  document.querySelector("#sidebar-list-floor").innerHTML = makesBgList(other[1].floor);
+  document.querySelector("#sidebar-list-walls").innerHTML = makesWallsList(other[0].walls);
+});
+getFurnitureList("other").then((other) => {
+  document.querySelector("#sidebar-list-floor").innerHTML = makesFloorList(other[1].floor);
 });
 getFurnitureList("other").then((other) => {
   document.querySelector("#sidebar-list-plants").innerHTML = makesFurnitureList(other[2].plants);
@@ -105,17 +106,34 @@ document.querySelector("#sidebar-top-furniture").addEventListener("click", (e) =
   }
 })
 
-document.querySelector("#all").innerHTML = getData("furniture")
-  .map(
-    (f) =>
-      `<img class="room__img" data-image style="top: ${f.top}px; left: ${f.left}px; transform: rotate(${f.rotate}deg)" id="img-${f.id}" src="${f.src}" alt="Furniture"/>`
-  )
-  .join("");
+if (!Object.keys(localStorage).includes("walls")) {
+  setData("walls", "https://i.postimg.cc/kGjKLbj7/Group-4.png");
+}
+
+if (!Object.keys(localStorage).includes("floor")) {
+  setData("floor", "https://i.postimg.cc/QNSQF2jv/Vector-11.png");
+}
 
 document.querySelector("#sidebar").addEventListener("click", (e) => {
-  if (
+  const child = e.target.firstElementChild;
+  if (e.target.hasAttribute("data-walls") ||
+    (child && child.hasAttribute("data-walls"))) {
+    const target = e.target.hasAttribute("data-walls")
+      ? e.target
+      : e.target.firstElementChild;
+    setData("walls", target.src)
+    changeBg();
+  } else if (
+    e.target.hasAttribute("data-floor") ||
+    (child && child.hasAttribute("data-floor"))) {
+    const target = e.target.hasAttribute("data-floor")
+      ? e.target
+      : e.target.firstElementChild;
+    setData("floor", target.src)
+    changeBg();
+  } else if (
     e.target.hasAttribute("data-img") ||
-    e.target.firstElementChild.hasAttribute("data-img")
+    (child && child.hasAttribute("data-img"))
   ) {
     const target = e.target.hasAttribute("data-img")
       ? e.target
@@ -139,7 +157,20 @@ document.querySelector("#sidebar").addEventListener("click", (e) => {
     const index = getData("index") + 1;
     setData("index", index);
   }
-});
+})
+
+changeBg();
+
+function changeBg() {
+  document.querySelector("#room").style.backgroundImage = `url("${getData("floor")}"),url("${getData("walls")}")`;
+}
+
+document.querySelector("#all").innerHTML = getData("furniture")
+  .map(
+    (f) =>
+      `<img class="room__img" data-image style="top: ${f.top}px; left: ${f.left}px; transform: rotate(${f.rotate}deg)" id="img-${f.id}" src="${f.src}" alt="Furniture"/>`
+  )
+  .join("");
 
 let img = "";
 
@@ -161,14 +192,13 @@ window.addEventListener("click", (e) => {
 document.querySelector("#rotate").addEventListener("click", () => {
   document
     .querySelector("#all")
-    .querySelector(`#${img}`).style.transform = `rotate(${
-    Number.parseInt(
+    .querySelector(`#${img}`).style.transform = `rotate(${Number.parseInt(
       document
         .querySelector("#all")
         .querySelector(`#${img}`)
         .style.transform.slice(7)
     ) + 90
-  }deg`;
+    }deg`;
   const array = getData("furniture");
   array.find((f) => `img-${f.id}` === img).rotate += 90;
   setData("furniture", array);
@@ -179,14 +209,10 @@ document.querySelector("#toup").addEventListener("click", (e) => {
     .querySelector("#all")
     .insertAdjacentHTML(
       "beforeend",
-      `<img class="room__img" data-image style="top: ${
-        document.querySelector("#all").querySelector(`#${img}`).style.top
-      }; left: ${
-        document.querySelector("#all").querySelector(`#${img}`).style.left
-      };transform: ${
-        document.querySelector("#all").querySelector(`#${img}`).style.transform
-      }" id="${img}" src="${
-        document.querySelector("#all").querySelector(`#${img}`).src
+      `<img class="room__img" data-image style="top: ${document.querySelector("#all").querySelector(`#${img}`).style.top
+      }; left: ${document.querySelector("#all").querySelector(`#${img}`).style.left
+      };transform: ${document.querySelector("#all").querySelector(`#${img}`).style.transform
+      }" id="${img}" src="${document.querySelector("#all").querySelector(`#${img}`).src
       }" alt="Furniture"/>`
     );
   document.querySelector("#all").querySelector(`#${img}`).remove();
@@ -201,14 +227,10 @@ document.querySelector("#todown").addEventListener("click", (e) => {
     .querySelector("#all")
     .insertAdjacentHTML(
       "afterbegin",
-      `<img class="room__img" data-image style="top: ${
-        document.querySelector("#all").querySelector(`#${img}`).style.top
-      }; left: ${
-        document.querySelector("#all").querySelector(`#${img}`).style.left
-      };transform: ${
-        document.querySelector("#all").querySelector(`#${img}`).style.transform
-      }" id="${img}" src="${
-        document.querySelector("#all").querySelector(`#${img}`).src
+      `<img class="room__img" data-image style="top: ${document.querySelector("#all").querySelector(`#${img}`).style.top
+      }; left: ${document.querySelector("#all").querySelector(`#${img}`).style.left
+      };transform: ${document.querySelector("#all").querySelector(`#${img}`).style.transform
+      }" id="${img}" src="${document.querySelector("#all").querySelector(`#${img}`).src
       }" alt="Furniture"/>`
     );
   document.querySelector("#all").querySelectorAll(`#${img}`)[1].remove();
@@ -253,12 +275,12 @@ document.querySelector("#room").addEventListener("mousemove", (e) => {
     let x =
       e.clientX -
       document.querySelector("#all").querySelector(`#${moveImg}`).clientWidth /
-        2 -
+      2 -
       rect.left;
     let y =
       e.clientY -
       document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight /
-        2 -
+      2 -
       rect.top;
     if (x < 0) {
       x = 0;
@@ -266,7 +288,7 @@ document.querySelector("#room").addEventListener("mousemove", (e) => {
     if (
       x >
       document.querySelector("#room").clientWidth -
-        document.querySelector("#all").querySelector(`#${moveImg}`).scrollWidth
+      document.querySelector("#all").querySelector(`#${moveImg}`).scrollWidth
     ) {
       x =
         document.querySelector("#room").clientWidth -
@@ -278,7 +300,7 @@ document.querySelector("#room").addEventListener("mousemove", (e) => {
     if (
       y >
       document.querySelector("#room").clientHeight -
-        document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight
+      document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight
     ) {
       y =
         document.querySelector("#room").clientHeight -
@@ -304,5 +326,8 @@ document.querySelector("#remove-all").addEventListener("click", () => {
   console.log("a");
   setData("furniture", []);
   setData("index", 1);
+  setData("walls", "https://i.postimg.cc/kGjKLbj7/Group-4.png")
+  setData("floor", "https://i.postimg.cc/QNSQF2jv/Vector-11.png")
+  changeBg()
   document.querySelector("#all").innerHTML = "";
 });
