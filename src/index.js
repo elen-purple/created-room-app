@@ -14,97 +14,111 @@ if (!Object.keys(localStorage).includes("index")) {
   setData("index", 1);
 }
 getFurnitureList("furniture").then((furniture) => {
-  document.querySelector("#sidebar-list-furniture").innerHTML = makesFurnitureList(furniture);
+  document.querySelector("#sidebar-list-furniture").innerHTML =
+    makesFurnitureList(furniture);
 });
 getFurnitureList("other").then((other) => {
-  document.querySelector("#sidebar-list-walls").innerHTML = makesWallsList(other[0].walls);
+  document.querySelector("#sidebar-list-walls").innerHTML = makesWallsList(
+    other[0].walls
+  );
 });
 getFurnitureList("other").then((other) => {
-  document.querySelector("#sidebar-list-floor").innerHTML = makesFloorList(other[1].floor);
+  document.querySelector("#sidebar-list-floor").innerHTML = makesFloorList(
+    other[1].floor
+  );
 });
 getFurnitureList("other").then((other) => {
-  document.querySelector("#sidebar-list-plants").innerHTML = makesFurnitureList(other[2].plants);
+  document.querySelector("#sidebar-list-plants").innerHTML = makesFurnitureList(
+    other[2].plants
+  );
 });
 getFurnitureList("other").then((other) => {
-  document.querySelector("#sidebar-list-windows").innerHTML = makesFurnitureList(other[3].windows);
+  document.querySelector("#sidebar-list-windows").innerHTML =
+    makesFurnitureList(other[3].windows);
 });
 getFurnitureList("other").then((other) => {
-  document.querySelector("#sidebar-list-doors").innerHTML = makesFurnitureList(other[4].doors);
+  document.querySelector("#sidebar-list-doors").innerHTML = makesFurnitureList(
+    other[4].doors
+  );
 });
 
-let isOpeningWalls = false
-let isOpeningFloor = false
-let isOpeningDoors = false
-let isOpeningWindows = false
-let isOpeningPlants = false
-let isOpeningFurniture = false
+let isOpeningWalls = false;
+let isOpeningFloor = false;
+let isOpeningDoors = false;
+let isOpeningWindows = false;
+let isOpeningPlants = false;
+let isOpeningFurniture = false;
 
 document.querySelector("#sidebar-top-floor").addEventListener("click", (e) => {
   if (isOpeningFloor) {
-    document.querySelector("#sidebar-list-floor").style.display = "none"
-    isOpeningFloor = false
-    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+    document.querySelector("#sidebar-list-floor").style.display = "none";
+    isOpeningFloor = false;
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
   } else {
-    document.querySelector("#sidebar-list-floor").style.display = "flex"
-    isOpeningFloor = true
-    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+    document.querySelector("#sidebar-list-floor").style.display = "flex";
+    isOpeningFloor = true;
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
   }
-})
+});
 document.querySelector("#sidebar-top-walls").addEventListener("click", (e) => {
   if (isOpeningWalls) {
-    document.querySelector("#sidebar-list-walls").style.display = "none"
-    isOpeningWalls = false
-    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+    document.querySelector("#sidebar-list-walls").style.display = "none";
+    isOpeningWalls = false;
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
   } else {
-    document.querySelector("#sidebar-list-walls").style.display = "flex"
-    isOpeningWalls = true
-    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+    document.querySelector("#sidebar-list-walls").style.display = "flex";
+    isOpeningWalls = true;
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
   }
-})
+});
 document.querySelector("#sidebar-top-doors").addEventListener("click", (e) => {
   if (isOpeningDoors) {
-    document.querySelector("#sidebar-list-doors").style.display = "none"
-    isOpeningDoors = false
-    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+    document.querySelector("#sidebar-list-doors").style.display = "none";
+    isOpeningDoors = false;
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
   } else {
-    document.querySelector("#sidebar-list-doors").style.display = "flex"
-    isOpeningDoors = true
-    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+    document.querySelector("#sidebar-list-doors").style.display = "flex";
+    isOpeningDoors = true;
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
   }
-})
-document.querySelector("#sidebar-top-windows").addEventListener("click", (e) => {
-  if (isOpeningWindows) {
-    document.querySelector("#sidebar-list-windows").style.display = "none"
-    isOpeningWindows = false
-    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
-  } else {
-    document.querySelector("#sidebar-list-windows").style.display = "flex"
-    isOpeningWindows = true
-    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
-  }
-})
+});
+document
+  .querySelector("#sidebar-top-windows")
+  .addEventListener("click", (e) => {
+    if (isOpeningWindows) {
+      document.querySelector("#sidebar-list-windows").style.display = "none";
+      isOpeningWindows = false;
+      e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
+    } else {
+      document.querySelector("#sidebar-list-windows").style.display = "flex";
+      isOpeningWindows = true;
+      e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
+    }
+  });
 document.querySelector("#sidebar-top-plants").addEventListener("click", (e) => {
   if (isOpeningPlants) {
-    document.querySelector("#sidebar-list-plants").style.display = "none"
-    isOpeningPlants = false
-    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+    document.querySelector("#sidebar-list-plants").style.display = "none";
+    isOpeningPlants = false;
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
   } else {
-    document.querySelector("#sidebar-list-plants").style.display = "flex"
-    isOpeningPlants = true
-    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+    document.querySelector("#sidebar-list-plants").style.display = "flex";
+    isOpeningPlants = true;
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
   }
-})
-document.querySelector("#sidebar-top-furniture").addEventListener("click", (e) => {
-  if (isOpeningFurniture) {
-    document.querySelector("#sidebar-list-furniture").style.display = "none"
-    isOpeningFurniture = false
-    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
-  } else {
-    document.querySelector("#sidebar-list-furniture").style.display = "flex"
-    isOpeningFurniture = true
-    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
-  }
-})
+});
+document
+  .querySelector("#sidebar-top-furniture")
+  .addEventListener("click", (e) => {
+    if (isOpeningFurniture) {
+      document.querySelector("#sidebar-list-furniture").style.display = "none";
+      isOpeningFurniture = false;
+      e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
+    } else {
+      document.querySelector("#sidebar-list-furniture").style.display = "flex";
+      isOpeningFurniture = true;
+      e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
+    }
+  });
 
 if (!Object.keys(localStorage).includes("walls")) {
   setData("walls", "https://i.postimg.cc/kGjKLbj7/Group-4.png");
@@ -116,20 +130,23 @@ if (!Object.keys(localStorage).includes("floor")) {
 
 document.querySelector("#sidebar").addEventListener("click", (e) => {
   const child = e.target.firstElementChild;
-  if (e.target.hasAttribute("data-walls") ||
-    (child && child.hasAttribute("data-walls"))) {
+  if (
+    e.target.hasAttribute("data-walls") ||
+    (child && child.hasAttribute("data-walls"))
+  ) {
     const target = e.target.hasAttribute("data-walls")
       ? e.target
       : e.target.firstElementChild;
-    setData("walls", target.src)
+    setData("walls", target.src);
     changeBg();
   } else if (
     e.target.hasAttribute("data-floor") ||
-    (child && child.hasAttribute("data-floor"))) {
+    (child && child.hasAttribute("data-floor"))
+  ) {
     const target = e.target.hasAttribute("data-floor")
       ? e.target
       : e.target.firstElementChild;
-    setData("floor", target.src)
+    setData("floor", target.src);
     changeBg();
   } else if (
     e.target.hasAttribute("data-img") ||
@@ -157,12 +174,14 @@ document.querySelector("#sidebar").addEventListener("click", (e) => {
     const index = getData("index") + 1;
     setData("index", index);
   }
-})
+});
 
 changeBg();
 
 function changeBg() {
-  document.querySelector("#room").style.backgroundImage = `url("${getData("floor")}"),url("${getData("walls")}")`;
+  document.querySelector("#room").style.backgroundImage = `url("${getData(
+    "floor"
+  )}"),url("${getData("walls")}")`;
 }
 
 document.querySelector("#all").innerHTML = getData("furniture")
@@ -192,13 +211,14 @@ window.addEventListener("click", (e) => {
 document.querySelector("#rotate").addEventListener("click", () => {
   document
     .querySelector("#all")
-    .querySelector(`#${img}`).style.transform = `rotate(${Number.parseInt(
+    .querySelector(`#${img}`).style.transform = `rotate(${
+    Number.parseInt(
       document
         .querySelector("#all")
         .querySelector(`#${img}`)
         .style.transform.slice(7)
     ) + 90
-    }deg`;
+  }deg`;
   const array = getData("furniture");
   array.find((f) => `img-${f.id}` === img).rotate += 90;
   setData("furniture", array);
@@ -209,10 +229,14 @@ document.querySelector("#toup").addEventListener("click", (e) => {
     .querySelector("#all")
     .insertAdjacentHTML(
       "beforeend",
-      `<img class="room__img" data-image style="top: ${document.querySelector("#all").querySelector(`#${img}`).style.top
-      }; left: ${document.querySelector("#all").querySelector(`#${img}`).style.left
-      };transform: ${document.querySelector("#all").querySelector(`#${img}`).style.transform
-      }" id="${img}" src="${document.querySelector("#all").querySelector(`#${img}`).src
+      `<img class="room__img" data-image style="top: ${
+        document.querySelector("#all").querySelector(`#${img}`).style.top
+      }; left: ${
+        document.querySelector("#all").querySelector(`#${img}`).style.left
+      };transform: ${
+        document.querySelector("#all").querySelector(`#${img}`).style.transform
+      }" id="${img}" src="${
+        document.querySelector("#all").querySelector(`#${img}`).src
       }" alt="Furniture"/>`
     );
   document.querySelector("#all").querySelector(`#${img}`).remove();
@@ -227,10 +251,14 @@ document.querySelector("#todown").addEventListener("click", (e) => {
     .querySelector("#all")
     .insertAdjacentHTML(
       "afterbegin",
-      `<img class="room__img" data-image style="top: ${document.querySelector("#all").querySelector(`#${img}`).style.top
-      }; left: ${document.querySelector("#all").querySelector(`#${img}`).style.left
-      };transform: ${document.querySelector("#all").querySelector(`#${img}`).style.transform
-      }" id="${img}" src="${document.querySelector("#all").querySelector(`#${img}`).src
+      `<img class="room__img" data-image style="top: ${
+        document.querySelector("#all").querySelector(`#${img}`).style.top
+      }; left: ${
+        document.querySelector("#all").querySelector(`#${img}`).style.left
+      };transform: ${
+        document.querySelector("#all").querySelector(`#${img}`).style.transform
+      }" id="${img}" src="${
+        document.querySelector("#all").querySelector(`#${img}`).src
       }" alt="Furniture"/>`
     );
   document.querySelector("#all").querySelectorAll(`#${img}`)[1].remove();
@@ -275,12 +303,12 @@ document.querySelector("#room").addEventListener("mousemove", (e) => {
     let x =
       e.clientX -
       document.querySelector("#all").querySelector(`#${moveImg}`).clientWidth /
-      2 -
+        2 -
       rect.left;
     let y =
       e.clientY -
       document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight /
-      2 -
+        2 -
       rect.top;
     if (x < 0) {
       x = 0;
@@ -288,7 +316,7 @@ document.querySelector("#room").addEventListener("mousemove", (e) => {
     if (
       x >
       document.querySelector("#room").clientWidth -
-      document.querySelector("#all").querySelector(`#${moveImg}`).scrollWidth
+        document.querySelector("#all").querySelector(`#${moveImg}`).scrollWidth
     ) {
       x =
         document.querySelector("#room").clientWidth -
@@ -300,7 +328,7 @@ document.querySelector("#room").addEventListener("mousemove", (e) => {
     if (
       y >
       document.querySelector("#room").clientHeight -
-      document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight
+        document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight
     ) {
       y =
         document.querySelector("#room").clientHeight -
@@ -315,7 +343,6 @@ document.querySelector("#room").addEventListener("mousemove", (e) => {
       .querySelector(`#${moveImg}`).style.top = `${y}px`;
     const array = getData("furniture");
     const f = array.find((f) => `img-${f.id}` === moveImg);
-    console.log(f);
     f.top = y;
     f.left = x;
     setData("furniture", array);
@@ -323,11 +350,10 @@ document.querySelector("#room").addEventListener("mousemove", (e) => {
 });
 
 document.querySelector("#remove-all").addEventListener("click", () => {
-  console.log("a");
   setData("furniture", []);
   setData("index", 1);
-  setData("walls", "https://i.postimg.cc/kGjKLbj7/Group-4.png")
-  setData("floor", "https://i.postimg.cc/QNSQF2jv/Vector-11.png")
-  changeBg()
+  setData("walls", "https://i.postimg.cc/kGjKLbj7/Group-4.png");
+  setData("floor", "https://i.postimg.cc/QNSQF2jv/Vector-11.png");
+  changeBg();
   document.querySelector("#all").innerHTML = "";
 });
