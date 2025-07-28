@@ -18,14 +18,12 @@ document.querySelector("#sidebar").addEventListener("click", (e) => {
       ? e.target
       : e.target.firstElementChild;
     addImgToRoom(id, target.src);
-    document.querySelector("#room").querySelector(`#img-${id}`).style.top = `${
-      document.querySelector("#room").querySelector(`#img-${id}`).clientHeight /
-      2
-    }px`;
-    document.querySelector("#room").querySelector(`#img-${id}`).style.left = `${
-      document.querySelector("#room").querySelector(`#img-${id}`).clientWidth /
-      2
-    }px`;
+    document
+      .querySelector("#room")
+      .querySelector(`#img-${id}`).style.top = `0px`;
+    document
+      .querySelector("#room")
+      .querySelector(`#img-${id}`).style.left = `0px`;
     id += 1;
   }
 });
@@ -46,7 +44,7 @@ window.addEventListener("click", (e) => {
   }
 });
 
-document.querySelector("#rotate").addEventListener("click", (e) => {
+document.querySelector("#rotate").addEventListener("click", () => {
   document
     .querySelector("#room")
     .querySelector(`#${img}`).style.transform = `rotate(${
@@ -59,9 +57,49 @@ document.querySelector("#rotate").addEventListener("click", (e) => {
   }deg`;
 });
 
-document.querySelector("body").addEventListener("mousedown", (e) => {
-  console.log(e.target);
-  if (e.target.hasAttribute("data-image")) {
-    console.log("a");
-  }
+document.querySelector("#toup").addEventListener("click", (e) => {
+  document
+    .querySelector("#room")
+    .insertAdjacentHTML(
+      "beforeend",
+      `<img class="room__img" data-image style="top: ${
+        document.querySelector("#room").querySelector(`#${img}`).style.top
+      }; left: ${
+        document.querySelector("#room").querySelector(`#${img}`).style.left
+      };transform: ${
+        document.querySelector("#room").querySelector(`#${img}`).style.transform
+      }" id="img-${img}" src="${
+        document.querySelector("#room").querySelector(`#${img}`).src
+      }" alt="Furniture"/>`
+    );
+  document.querySelector("#room").querySelector(`#${img}`).remove();
 });
+
+document.querySelector("#todown").addEventListener("click", (e) => {
+  document
+    .querySelector("#room")
+    .insertAdjacentHTML(
+      "afterbegin",
+      `<img class="room__img" data-image style="top: ${
+        document.querySelector("#room").querySelector(`#${img}`).style.top
+      }; left: ${
+        document.querySelector("#room").querySelector(`#${img}`).style.left
+      };transform: ${
+        document.querySelector("#room").querySelector(`#${img}`).style.transform
+      }" id="img-${img}" src="${
+        document.querySelector("#room").querySelector(`#${img}`).src
+      }" alt="Furniture"/>`
+    );
+  document.querySelector("#room").querySelector(`#${img}`).remove();
+});
+
+document.querySelector("#deleted").addEventListener("click", (e) => {
+  document.querySelector("#room").querySelector(`#${img}`).remove();
+});
+
+// document.querySelector("body").addEventListener("mousedown", (e) => {
+//   console.log(e.target);
+//   if (e.target.hasAttribute("data-image")) {
+//     console.log("a");
+//   }
+// });
