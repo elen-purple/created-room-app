@@ -1,4 +1,9 @@
 <div class="wrap">
+  <button type="button" class="button">
+    <svg class="button__icon" width="80" height="80">
+      <use href="#round"></use>
+    </svg>
+  </button>
   <div id="room" class="room">
     <div class="menu is-hidden" id="menu">
       <ul class="menu__list">
@@ -11,7 +16,7 @@
           </button>
         </li>
         <li class="menu__item">
-          <button type="button" id="up" class="menu__btn">
+          <button type="button" id="toup" class="menu__btn">
             <p class="menu__text">To up</p>
             <svg class="menu__icon" width="24" height="24">
               <use href="#up"></use>
@@ -19,7 +24,7 @@
           </button>
         </li>
         <li class="menu__item">
-          <button type="button" id="down" class="menu__btn">
+          <button type="button" id="todown" class="menu__btn">
             <p class="menu__text">To down</p>
             <svg class="menu__icon" width="24" height="24">
               <use href="#down"></use>
@@ -27,7 +32,7 @@
           </button>
         </li>
         <li class="menu__item">
-          <button type="button" id="delete" class="menu__btn">
+          <button type="button" id="deleted" class="menu__btn">
             <p class="menu__text">Delete</p>
             <svg class="menu__icon" width="24" height="24">
               <use href="#delete"></use>
@@ -36,5 +41,6 @@
         </li>
       </ul>
     </div>
+    <div id="all"></div>
   </div>
 </div>
