@@ -140,9 +140,30 @@ document.querySelector("#deleted").addEventListener("click", (e) => {
   setData("furniture", array);
 });
 
-document.querySelector("body").addEventListener("mousedown", (e) => {
-  console.log(e.target);
+
+let moveImg = ""
+let isMooving = false
+
+document.querySelector("#room").addEventListener("mousedown", (e) => {
   if (e.target.hasAttribute("data-image")) {
-    console.log("a");
+    isMooving = true
+    moveImg = e.target.id
+    console.log("a1")
+
+  }
+})
+
+document.querySelector("#room").addEventListener("mouseup", (e) => {
+  moveImg = ""
+  isMooving = false
+  console.log("a2")
+
+})
+
+document.addEventListener('mousemove', (e) => {
+  if (isMooving === true) {
+    console.log("a")
+    document.querySelector(`#${moveImg}`).style.left = `${e.clientX}px`;
+    document.querySelector(`#${moveImg}`).style.top = `${e.clientY}px`;
   }
 });
