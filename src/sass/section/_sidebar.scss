@@ -1,6 +1,8 @@
 .sidebar {
     padding: 40px;
-    display: block;
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
     min-width: 400px;
     width: 400px;
     background-color: #313131;
@@ -11,8 +13,23 @@
         display: none;
     }
 
-    &__list {
+    &__top {
+        padding: 20px 32px;
+        background-color: #4B4B4B;
+        color: #fff;
+        font-size: 24px;
+        width: 100%;
         display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__icon {
+        fill: #fff;
+    }
+
+    &__list {
+        display: none;
         flex-wrap: wrap;
         gap: 20px;
     }
