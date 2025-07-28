@@ -46,6 +46,6 @@
 
 # Автори
 
-- # Анна Гаврилова Team Lead, Front-end developer
+- # Анна Гаврилова - Team Lead, Front-end developer
 
-- # Марія Гаврилова Front-end developer
+- # Марія Гаврилова - Front-end developer
