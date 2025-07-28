@@ -134,10 +134,18 @@
 .button {
     border-radius: 50%;
     line-height: 0;
-    background-color: #313131;
+    background-color: #512e2e;
     height: min-content;
 
     &__icon {
-        fill: #282828;
+        fill: rgb(238, 49, 49);
+    }
+
+    &:hover &__icon {
+        fill: #ffffff;
+    }
+
+    &:hover {
+        background-color: rgb(238, 49, 49);
     }
 }
