@@ -1,5 +1,6 @@
 import { getFurnitureList } from "./js/fetchs/getFurnitureList";
 import { makesFurnitureList } from "./js/markups/makesFurnitureList";
+import { makesBgList } from "./js/markups/makesBgList";
 import { addImgToRoom } from "./js/scripts/addImgToRoom";
 import { openMenu } from "./js/scripts/openMenu";
 import { getData } from "./js/localstorage/getData";
@@ -9,9 +10,98 @@ if (!Object.keys(localStorage).includes("furniture")) {
   setData("furniture", []);
 }
 
-getFurnitureList().then((furniture) => {
-  makesFurnitureList(furniture);
+getFurnitureList("furniture").then((furniture) => {
+  document.querySelector("#sidebar-list-furniture").innerHTML = makesFurnitureList(furniture);
 });
+getFurnitureList("other").then((other) => {
+  document.querySelector("#sidebar-list-walls").innerHTML = makesBgList(other[0].walls);
+});
+getFurnitureList("other").then((other) => {
+  document.querySelector("#sidebar-list-floor").innerHTML = makesBgList(other[1].floor);
+});
+getFurnitureList("other").then((other) => {
+  document.querySelector("#sidebar-list-plants").innerHTML = makesFurnitureList(other[2].plants);
+});
+getFurnitureList("other").then((other) => {
+  document.querySelector("#sidebar-list-windows").innerHTML = makesFurnitureList(other[3].windows);
+});
+getFurnitureList("other").then((other) => {
+  document.querySelector("#sidebar-list-doors").innerHTML = makesFurnitureList(other[4].doors);
+});
+
+let isOpeningWalls = false
+let isOpeningFloor = false
+let isOpeningDoors = false
+let isOpeningWindows = false
+let isOpeningPlants = false
+let isOpeningFurniture = false
+
+document.querySelector("#sidebar-top-floor").addEventListener("click", (e) => {
+  if (isOpeningFloor) {
+    document.querySelector("#sidebar-list-floor").style.display = "none"
+    isOpeningFloor = false
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+  } else {
+    document.querySelector("#sidebar-list-floor").style.display = "flex"
+    isOpeningFloor = true
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+  }
+})
+document.querySelector("#sidebar-top-walls").addEventListener("click", (e) => {
+  if (isOpeningWalls) {
+    document.querySelector("#sidebar-list-walls").style.display = "none"
+    isOpeningWalls = false
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+  } else {
+    document.querySelector("#sidebar-list-walls").style.display = "flex"
+    isOpeningWalls = true
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+  }
+})
+document.querySelector("#sidebar-top-doors").addEventListener("click", (e) => {
+  if (isOpeningDoors) {
+    document.querySelector("#sidebar-list-doors").style.display = "none"
+    isOpeningDoors = false
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+  } else {
+    document.querySelector("#sidebar-list-doors").style.display = "flex"
+    isOpeningDoors = true
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+  }
+})
+document.querySelector("#sidebar-top-windows").addEventListener("click", (e) => {
+  if (isOpeningWindows) {
+    document.querySelector("#sidebar-list-windows").style.display = "none"
+    isOpeningWindows = false
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+  } else {
+    document.querySelector("#sidebar-list-windows").style.display = "flex"
+    isOpeningWindows = true
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+  }
+})
+document.querySelector("#sidebar-top-plants").addEventListener("click", (e) => {
+  if (isOpeningPlants) {
+    document.querySelector("#sidebar-list-plants").style.display = "none"
+    isOpeningPlants = false
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+  } else {
+    document.querySelector("#sidebar-list-plants").style.display = "flex"
+    isOpeningPlants = true
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+  }
+})
+document.querySelector("#sidebar-top-furniture").addEventListener("click", (e) => {
+  if (isOpeningFurniture) {
+    document.querySelector("#sidebar-list-furniture").style.display = "none"
+    isOpeningFurniture = false
+    e.currentTarget.lastElementChild.style.transform = "rotate(0deg)"
+  } else {
+    document.querySelector("#sidebar-list-furniture").style.display = "flex"
+    isOpeningFurniture = true
+    e.currentTarget.lastElementChild.style.transform = "rotate(180deg)"
+  }
+})
 
 let id = 1;
 
@@ -165,3 +255,4 @@ document.querySelector("#remove-all").addEventListener("click", () => {
   setData("furniture", [])
   document.querySelector("#all").innerHTML = ""
 })
+
