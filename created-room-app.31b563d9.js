@@ -669,117 +669,18 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"a0t4e":[function(require,module,exports,__globalThis) {
 var _getFurnitureList = require("./js/fetchs/getFurnitureList");
 var _makesFurnitureList = require("./js/markups/makesFurnitureList");
-var _makesFloorList = require("./js/markups/makesFloorList");
-var _makesWallsList = require("./js/markups/makesWallsList");
 var _addImgToRoom = require("./js/scripts/addImgToRoom");
 var _openMenu = require("./js/scripts/openMenu");
 var _getData = require("./js/localstorage/getData");
 var _setData = require("./js/localstorage/setData");
 if (!Object.keys(localStorage).includes("furniture")) (0, _setData.setData)("furniture", []);
 if (!Object.keys(localStorage).includes("index")) (0, _setData.setData)("index", 1);
-(0, _getFurnitureList.getFurnitureList)("furniture").then((furniture)=>{
-    document.querySelector("#sidebar-list-furniture").innerHTML = (0, _makesFurnitureList.makesFurnitureList)(furniture);
+(0, _getFurnitureList.getFurnitureList)().then((furniture)=>{
+    (0, _makesFurnitureList.makesFurnitureList)(furniture);
 });
-(0, _getFurnitureList.getFurnitureList)("other").then((other)=>{
-    document.querySelector("#sidebar-list-walls").innerHTML = (0, _makesWallsList.makesWallsList)(other[0].walls);
-});
-(0, _getFurnitureList.getFurnitureList)("other").then((other)=>{
-    document.querySelector("#sidebar-list-floor").innerHTML = (0, _makesFloorList.makesFloorList)(other[1].floor);
-});
-(0, _getFurnitureList.getFurnitureList)("other").then((other)=>{
-    document.querySelector("#sidebar-list-plants").innerHTML = (0, _makesFurnitureList.makesFurnitureList)(other[2].plants);
-});
-(0, _getFurnitureList.getFurnitureList)("other").then((other)=>{
-    document.querySelector("#sidebar-list-windows").innerHTML = (0, _makesFurnitureList.makesFurnitureList)(other[3].windows);
-});
-(0, _getFurnitureList.getFurnitureList)("other").then((other)=>{
-    document.querySelector("#sidebar-list-doors").innerHTML = (0, _makesFurnitureList.makesFurnitureList)(other[4].doors);
-});
-let isOpeningWalls = false;
-let isOpeningFloor = false;
-let isOpeningDoors = false;
-let isOpeningWindows = false;
-let isOpeningPlants = false;
-let isOpeningFurniture = false;
-document.querySelector("#sidebar-top-floor").addEventListener("click", (e)=>{
-    if (isOpeningFloor) {
-        document.querySelector("#sidebar-list-floor").style.display = "none";
-        isOpeningFloor = false;
-        e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
-    } else {
-        document.querySelector("#sidebar-list-floor").style.display = "flex";
-        isOpeningFloor = true;
-        e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
-    }
-});
-document.querySelector("#sidebar-top-walls").addEventListener("click", (e)=>{
-    if (isOpeningWalls) {
-        document.querySelector("#sidebar-list-walls").style.display = "none";
-        isOpeningWalls = false;
-        e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
-    } else {
-        document.querySelector("#sidebar-list-walls").style.display = "flex";
-        isOpeningWalls = true;
-        e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
-    }
-});
-document.querySelector("#sidebar-top-doors").addEventListener("click", (e)=>{
-    if (isOpeningDoors) {
-        document.querySelector("#sidebar-list-doors").style.display = "none";
-        isOpeningDoors = false;
-        e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
-    } else {
-        document.querySelector("#sidebar-list-doors").style.display = "flex";
-        isOpeningDoors = true;
-        e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
-    }
-});
-document.querySelector("#sidebar-top-windows").addEventListener("click", (e)=>{
-    if (isOpeningWindows) {
-        document.querySelector("#sidebar-list-windows").style.display = "none";
-        isOpeningWindows = false;
-        e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
-    } else {
-        document.querySelector("#sidebar-list-windows").style.display = "flex";
-        isOpeningWindows = true;
-        e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
-    }
-});
-document.querySelector("#sidebar-top-plants").addEventListener("click", (e)=>{
-    if (isOpeningPlants) {
-        document.querySelector("#sidebar-list-plants").style.display = "none";
-        isOpeningPlants = false;
-        e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
-    } else {
-        document.querySelector("#sidebar-list-plants").style.display = "flex";
-        isOpeningPlants = true;
-        e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
-    }
-});
-document.querySelector("#sidebar-top-furniture").addEventListener("click", (e)=>{
-    if (isOpeningFurniture) {
-        document.querySelector("#sidebar-list-furniture").style.display = "none";
-        isOpeningFurniture = false;
-        e.currentTarget.lastElementChild.style.transform = "rotate(0deg)";
-    } else {
-        document.querySelector("#sidebar-list-furniture").style.display = "flex";
-        isOpeningFurniture = true;
-        e.currentTarget.lastElementChild.style.transform = "rotate(180deg)";
-    }
-});
-if (!Object.keys(localStorage).includes("walls")) (0, _setData.setData)("walls", "https://i.postimg.cc/kGjKLbj7/Group-4.png");
-if (!Object.keys(localStorage).includes("floor")) (0, _setData.setData)("floor", "https://i.postimg.cc/QNSQF2jv/Vector-11.png");
+document.querySelector("#all").innerHTML = (0, _getData.getData)("furniture").map((f)=>`<img class="room__img" data-image style="top: ${f.top}px; left: ${f.left}px; transform: rotate(${f.rotate}deg)" id="img-${f.id}" src="${f.src}" alt="Furniture"/>`).join("");
 document.querySelector("#sidebar").addEventListener("click", (e)=>{
-    const child = e.target.firstElementChild;
-    if (e.target.hasAttribute("data-walls") || child && child.hasAttribute("data-walls")) {
-        const target = e.target.hasAttribute("data-walls") ? e.target : e.target.firstElementChild;
-        (0, _setData.setData)("walls", target.src);
-        changeBg();
-    } else if (e.target.hasAttribute("data-floor") || child && child.hasAttribute("data-floor")) {
-        const target = e.target.hasAttribute("data-floor") ? e.target : e.target.firstElementChild;
-        (0, _setData.setData)("floor", target.src);
-        changeBg();
-    } else if (e.target.hasAttribute("data-img") || child && child.hasAttribute("data-img")) {
+    if (e.target.hasAttribute("data-img") || e.target.firstElementChild.hasAttribute("data-img")) {
         const target = e.target.hasAttribute("data-img") ? e.target : e.target.firstElementChild;
         (0, _addImgToRoom.addImgToRoom)((0, _getData.getData)("index"), target.src);
         document.querySelector("#all").querySelector(`#img-${(0, _getData.getData)("index")}`).style.top = `0px`;
@@ -797,11 +698,6 @@ document.querySelector("#sidebar").addEventListener("click", (e)=>{
         (0, _setData.setData)("index", index);
     }
 });
-changeBg();
-function changeBg() {
-    document.querySelector("#room").style.backgroundImage = `url("${(0, _getData.getData)("floor")}"),url("${(0, _getData.getData)("walls")}")`;
-}
-document.querySelector("#all").innerHTML = (0, _getData.getData)("furniture").map((f)=>`<img class="room__img" data-image style="top: ${f.top}px; left: ${f.left}px; transform: rotate(${f.rotate}deg)" id="img-${f.id}" src="${f.src}" alt="Furniture"/>`).join("");
 let img = "";
 document.querySelector("#all").addEventListener("contextmenu", (e)=>{
     e.preventDefault();
@@ -885,19 +781,16 @@ document.querySelector("#remove-all").addEventListener("click", ()=>{
     console.log("a");
     (0, _setData.setData)("furniture", []);
     (0, _setData.setData)("index", 1);
-    (0, _setData.setData)("walls", "https://i.postimg.cc/kGjKLbj7/Group-4.png");
-    (0, _setData.setData)("floor", "https://i.postimg.cc/QNSQF2jv/Vector-11.png");
-    changeBg();
     document.querySelector("#all").innerHTML = "";
 });
 
-},{"./js/fetchs/getFurnitureList":"iOg9G","./js/markups/makesFurnitureList":"86otN","./js/scripts/addImgToRoom":"di6dH","./js/scripts/openMenu":"6Be9X","./js/localstorage/getData":"kWJ4h","./js/localstorage/setData":"a92Cv","./js/markups/makesFloorList":"btwo4","./js/markups/makesWallsList":"8pecK"}],"iOg9G":[function(require,module,exports,__globalThis) {
+},{"./js/fetchs/getFurnitureList":"iOg9G","./js/markups/makesFurnitureList":"86otN","./js/scripts/addImgToRoom":"di6dH","./js/scripts/openMenu":"6Be9X","./js/localstorage/getData":"kWJ4h","./js/localstorage/setData":"a92Cv"}],"iOg9G":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getFurnitureList", ()=>getFurnitureList);
-const getFurnitureList = async (name)=>{
+const getFurnitureList = async ()=>{
     try {
-        return await fetch(`https://68860803f52d34140f6b2f20.mockapi.io/create-room-app/${name}`).then((response)=>response.json());
+        return await fetch("https://68860803f52d34140f6b2f20.mockapi.io/create-room-app/furniture").then((response)=>response.json());
     } catch (e) {
         return e;
     }
@@ -938,7 +831,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "makesFurnitureList", ()=>makesFurnitureList);
 const makesFurnitureList = (furniture)=>{
-    return furniture.map((f)=>`<li class="sidebar__item">
+    document.querySelector("#sidebar-list").innerHTML = furniture.map((f)=>`<li class="sidebar__item">
         <img id="img-${f.id}" data-img class="sidebar__img" src="${f.img}" alt="Furniture" />
       </li>`).join("");
 };
@@ -975,26 +868,6 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setData", ()=>setData);
 const setData = (property, value)=>{
     localStorage.setItem(property, JSON.stringify(value));
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"btwo4":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "makesFloorList", ()=>makesFloorList);
-const makesFloorList = (furniture)=>{
-    return furniture.map((f)=>`<li class="sidebar__item">
-        <img id="img-${f.id}" data-floor class="sidebar__img" src="${f.img}" alt="Furniture" />
-      </li>`).join("");
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"8pecK":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "makesWallsList", ()=>makesWallsList);
-const makesWallsList = (furniture)=>{
-    return furniture.map((f)=>`<li class="sidebar__item">
-        <img id="img-${f.id}" data-walls class="sidebar__img" src="${f.img}" alt="Furniture" />
-      </li>`).join("");
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["5j6Kf","a0t4e"], "a0t4e", "parcelRequire8394", {})
