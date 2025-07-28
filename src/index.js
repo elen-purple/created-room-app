@@ -9,16 +9,18 @@ if (!Object.keys(localStorage).includes("furniture")) {
   setData("furniture", []);
 }
 
+if (!Object.keys(localStorage).includes("index")) {
+  setData("index", 1);
+}
+
 getFurnitureList().then((furniture) => {
   makesFurnitureList(furniture);
 });
 
-let id = 1;
-
 document.querySelector("#all").innerHTML = getData("furniture")
   .map(
     (f) =>
-      `<img class="room__img" data-image style="top: ${f.top}; left: ${f.left};transform: rotate(${f.rotate}deg)" id="img-${f.id}" src="${f.src}" alt="Furniture"/>`
+      `<img class="room__img" data-image style="top: ${f.top}px; left: ${f.left}px; transform: rotate(${f.rotate}deg)" id="img-${f.id}" src="${f.src}" alt="Furniture"/>`
   )
   .join("");
 
@@ -30,23 +32,24 @@ document.querySelector("#sidebar").addEventListener("click", (e) => {
     const target = e.target.hasAttribute("data-img")
       ? e.target
       : e.target.firstElementChild;
-    addImgToRoom(id, target.src);
+    addImgToRoom(getData("index"), target.src);
     document
       .querySelector("#all")
-      .querySelector(`#img-${id}`).style.top = `0px`;
+      .querySelector(`#img-${getData("index")}`).style.top = `0px`;
     document
       .querySelector("#all")
-      .querySelector(`#img-${id}`).style.left = `0px`;
+      .querySelector(`#img-${getData("index")}`).style.left = `0px`;
     const array = getData("furniture");
     array.push({
-      id,
+      id: getData("index"),
       src: target.src,
       top: 0,
       left: 0,
       rotate: 0,
     });
     setData("furniture", array);
-    id += 1;
+    const index = getData("index") + 1;
+    setData("index", index);
   }
 });
 
@@ -56,7 +59,8 @@ document.querySelector("#all").addEventListener("contextmenu", (e) => {
   e.preventDefault();
   if (e.target.hasAttribute("data-image")) {
     img = e.target.id;
-    openMenu(e.offsetX, e.offsetY);
+    const rect = document.querySelector("#room").getBoundingClientRect();
+    openMenu(e.pageX - rect.left, e.pageY - rect.top);
   }
 });
 
@@ -131,31 +135,71 @@ document.querySelector("#deleted").addEventListener("click", (e) => {
   setData("furniture", array);
 });
 
+let moveImg = "";
+let isMoving = false;
 
-let moveImg = ""
-let isMooving = false
-
-document.querySelector("#room").addEventListener("mousedown", (e) => {
+document.querySelector("#room").addEventListener("click", (e) => {
   if (e.target.hasAttribute("data-image")) {
-    isMooving = true
-    moveImg = e.target.id
-    console.log("a1")
-
+    if (isMoving) {
+      isMoving = false;
+      moveImg = "";
+    } else {
+      isMoving = true;
+      moveImg = e.target.id;
+    }
   }
-})
+});
 
-document.querySelector("#room").addEventListener("mouseup", (e) => {
-  moveImg = ""
-  isMooving = false
-  console.log("a2")
-
-})
-
-document.addEventListener('mousemove', (e) => {
-  if (isMooving === true) {
-    console.log("a")
-    document.querySelector(`#${moveImg}`).style.left = `${e.clientX}px`;
-    document.querySelector(`#${moveImg}`).style.top = `${e.clientY}px`;
+document.querySelector("#room").addEventListener("mousemove", (e) => {
+  if (isMoving === true) {
+    const rect = document.querySelector("#room").getBoundingClientRect();
+    let x =
+      e.clientX -
+      document.querySelector("#all").querySelector(`#${moveImg}`).clientWidth /
+        2 -
+      rect.left;
+    let y =
+      e.clientY -
+      document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight /
+        2 -
+      rect.top;
+    if (x < 0) {
+      x = 0;
+    }
+    if (
+      x >
+      document.querySelector("#room").clientWidth -
+        document.querySelector("#all").querySelector(`#${moveImg}`).scrollWidth
+    ) {
+      x =
+        document.querySelector("#room").clientWidth -
+        document.querySelector("#all").querySelector(`#${moveImg}`).scrollWidth;
+    }
+    if (y < 0) {
+      y = 0;
+    }
+    if (
+      y >
+      document.querySelector("#room").clientHeight -
+        document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight
+    ) {
+      y =
+        document.querySelector("#room").clientHeight -
+        document.querySelector("#all").querySelector(`#${moveImg}`)
+          .clientHeight;
+    }
+    document
+      .querySelector("#all")
+      .querySelector(`#${moveImg}`).style.left = `${x}px`;
+    document
+      .querySelector("#all")
+      .querySelector(`#${moveImg}`).style.top = `${y}px`;
+    const array = getData("furniture");
+    const f = array.find((f) => `img-${f.id}` === moveImg);
+    console.log(f);
+    f.top = y;
+    f.left = x;
+    setData("furniture", array);
   }
 });
 
