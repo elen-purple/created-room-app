@@ -667,7 +667,209 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"a0t4e":[function(require,module,exports,__globalThis) {
+var _getFurnitureList = require("./js/fetchs/getFurnitureList");
+var _makesFurnitureList = require("./js/markups/makesFurnitureList");
+var _addImgToRoom = require("./js/scripts/addImgToRoom");
+var _openMenu = require("./js/scripts/openMenu");
+var _getData = require("./js/localstorage/getData");
+var _setData = require("./js/localstorage/setData");
+if (!Object.keys(localStorage).includes("furniture")) (0, _setData.setData)("furniture", []);
+if (!Object.keys(localStorage).includes("index")) (0, _setData.setData)("index", 1);
+(0, _getFurnitureList.getFurnitureList)().then((furniture)=>{
+    (0, _makesFurnitureList.makesFurnitureList)(furniture);
+});
+document.querySelector("#all").innerHTML = (0, _getData.getData)("furniture").map((f)=>`<img class="room__img" data-image style="top: ${f.top}px; left: ${f.left}px; transform: rotate(${f.rotate}deg)" id="img-${f.id}" src="${f.src}" alt="Furniture"/>`).join("");
+document.querySelector("#sidebar").addEventListener("click", (e)=>{
+    if (e.target.hasAttribute("data-img") || e.target.firstElementChild.hasAttribute("data-img")) {
+        const target = e.target.hasAttribute("data-img") ? e.target : e.target.firstElementChild;
+        (0, _addImgToRoom.addImgToRoom)((0, _getData.getData)("index"), target.src);
+        document.querySelector("#all").querySelector(`#img-${(0, _getData.getData)("index")}`).style.top = `0px`;
+        document.querySelector("#all").querySelector(`#img-${(0, _getData.getData)("index")}`).style.left = `0px`;
+        const array = (0, _getData.getData)("furniture");
+        array.push({
+            id: (0, _getData.getData)("index"),
+            src: target.src,
+            top: 0,
+            left: 0,
+            rotate: 0
+        });
+        (0, _setData.setData)("furniture", array);
+        const index = (0, _getData.getData)("index") + 1;
+        (0, _setData.setData)("index", index);
+    }
+});
+let img = "";
+document.querySelector("#all").addEventListener("contextmenu", (e)=>{
+    e.preventDefault();
+    if (e.target.hasAttribute("data-image")) {
+        img = e.target.id;
+        const rect = document.querySelector("#room").getBoundingClientRect();
+        (0, _openMenu.openMenu)(e.pageX - rect.left, e.pageY - rect.top);
+    }
+});
+window.addEventListener("click", (e)=>{
+    if (!e.target.hasAttribute("data-image")) document.querySelector("#menu").classList.add("is-hidden");
+});
+document.querySelector("#rotate").addEventListener("click", ()=>{
+    document.querySelector("#all").querySelector(`#${img}`).style.transform = `rotate(${Number.parseInt(document.querySelector("#all").querySelector(`#${img}`).style.transform.slice(7)) + 90}deg`;
+    const array = (0, _getData.getData)("furniture");
+    array.find((f)=>`img-${f.id}` === img).rotate += 90;
+    (0, _setData.setData)("furniture", array);
+});
+document.querySelector("#toup").addEventListener("click", (e)=>{
+    document.querySelector("#all").insertAdjacentHTML("beforeend", `<img class="room__img" data-image style="top: ${document.querySelector("#all").querySelector(`#${img}`).style.top}; left: ${document.querySelector("#all").querySelector(`#${img}`).style.left};transform: ${document.querySelector("#all").querySelector(`#${img}`).style.transform}" id="${img}" src="${document.querySelector("#all").querySelector(`#${img}`).src}" alt="Furniture"/>`);
+    document.querySelector("#all").querySelector(`#${img}`).remove();
+    const array = (0, _getData.getData)("furniture");
+    array.push(array.find((f)=>`img-${f.id}` === img));
+    array.splice(array.indexOf(array.find((f)=>`img-${f.id}` === img)), 1);
+    (0, _setData.setData)("furniture", array);
+});
+document.querySelector("#todown").addEventListener("click", (e)=>{
+    document.querySelector("#all").insertAdjacentHTML("afterbegin", `<img class="room__img" data-image style="top: ${document.querySelector("#all").querySelector(`#${img}`).style.top}; left: ${document.querySelector("#all").querySelector(`#${img}`).style.left};transform: ${document.querySelector("#all").querySelector(`#${img}`).style.transform}" id="${img}" src="${document.querySelector("#all").querySelector(`#${img}`).src}" alt="Furniture"/>`);
+    document.querySelector("#all").querySelectorAll(`#${img}`)[1].remove();
+    const array = (0, _getData.getData)("furniture");
+    const a = array.find((f)=>`img-${f.id}` === img);
+    array.unshift({
+        id: a.id,
+        src: a.src,
+        top: a.top,
+        left: a.left,
+        rotate: a.rotate
+    });
+    array.splice(array.indexOf(array.filter((f)=>`img-${f.id}` === img)[1]), 1);
+    (0, _setData.setData)("furniture", array);
+});
+document.querySelector("#deleted").addEventListener("click", (e)=>{
+    document.querySelector("#all").querySelector(`#${img}`).remove();
+    const array = (0, _getData.getData)("furniture");
+    array.splice(array.indexOf(array.find((f)=>`img-${f.id}` === img)), 1);
+    (0, _setData.setData)("furniture", array);
+});
+let moveImg = "";
+let isMoving = false;
+document.querySelector("#room").addEventListener("click", (e)=>{
+    if (e.target.hasAttribute("data-image")) {
+        if (isMoving) {
+            isMoving = false;
+            moveImg = "";
+        } else {
+            isMoving = true;
+            moveImg = e.target.id;
+        }
+    }
+});
+document.querySelector("#room").addEventListener("mousemove", (e)=>{
+    if (isMoving === true) {
+        const rect = document.querySelector("#room").getBoundingClientRect();
+        let x = e.clientX - document.querySelector("#all").querySelector(`#${moveImg}`).clientWidth / 2 - rect.left;
+        let y = e.clientY - document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight / 2 - rect.top;
+        if (x < 0) x = 0;
+        if (x > document.querySelector("#room").clientWidth - document.querySelector("#all").querySelector(`#${moveImg}`).scrollWidth) x = document.querySelector("#room").clientWidth - document.querySelector("#all").querySelector(`#${moveImg}`).scrollWidth;
+        if (y < 0) y = 0;
+        if (y > document.querySelector("#room").clientHeight - document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight) y = document.querySelector("#room").clientHeight - document.querySelector("#all").querySelector(`#${moveImg}`).clientHeight;
+        document.querySelector("#all").querySelector(`#${moveImg}`).style.left = `${x}px`;
+        document.querySelector("#all").querySelector(`#${moveImg}`).style.top = `${y}px`;
+        const array = (0, _getData.getData)("furniture");
+        const f = array.find((f)=>`img-${f.id}` === moveImg);
+        console.log(f);
+        f.top = y;
+        f.left = x;
+        (0, _setData.setData)("furniture", array);
+    }
+});
+document.querySelector("#remove-all").addEventListener("click", ()=>{
+    console.log("a");
+    (0, _setData.setData)("furniture", []);
+    (0, _setData.setData)("index", 1);
+    document.querySelector("#all").innerHTML = "";
+});
 
-},{}]},["5j6Kf","a0t4e"], "a0t4e", "parcelRequire8394", {})
+},{"./js/fetchs/getFurnitureList":"iOg9G","./js/markups/makesFurnitureList":"86otN","./js/scripts/addImgToRoom":"di6dH","./js/scripts/openMenu":"6Be9X","./js/localstorage/getData":"kWJ4h","./js/localstorage/setData":"a92Cv"}],"iOg9G":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getFurnitureList", ()=>getFurnitureList);
+const getFurnitureList = async ()=>{
+    try {
+        return await fetch("https://68860803f52d34140f6b2f20.mockapi.io/create-room-app/furniture").then((response)=>response.json());
+    } catch (e) {
+        return e;
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"jnFvT":[function(require,module,exports,__globalThis) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"86otN":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "makesFurnitureList", ()=>makesFurnitureList);
+const makesFurnitureList = (furniture)=>{
+    document.querySelector("#sidebar-list").innerHTML = furniture.map((f)=>`<li class="sidebar__item">
+        <img id="img-${f.id}" data-img class="sidebar__img" src="${f.img}" alt="Furniture" />
+      </li>`).join("");
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"di6dH":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "addImgToRoom", ()=>addImgToRoom);
+const addImgToRoom = (id, img)=>{
+    document.querySelector("#all").insertAdjacentHTML("beforeend", `<img class="room__img" data-image style="transform:rotate(0deg)" id="img-${id}" src="${img}" alt="Furniture"/>`);
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"6Be9X":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "openMenu", ()=>openMenu);
+const openMenu = (x, y)=>{
+    document.querySelector("#menu").classList.remove("is-hidden");
+    document.querySelector("#menu").style.left = `${x}px`;
+    document.querySelector("#menu").style.top = `${y}px`;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"kWJ4h":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getData", ()=>getData);
+const getData = (property)=>{
+    return JSON.parse(localStorage.getItem(property));
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"a92Cv":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "setData", ()=>setData);
+const setData = (property, value)=>{
+    localStorage.setItem(property, JSON.stringify(value));
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["5j6Kf","a0t4e"], "a0t4e", "parcelRequire8394", {})
 
 //# sourceMappingURL=created-room-app.31b563d9.js.map
